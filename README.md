@@ -20,6 +20,29 @@ content workflows.
 | [`video-download`](./video-download/) | 视频下载工具 | 下载抖音及其他 `yt-dlp` 支持平台的视频，并自动选择清晰度和合并音频 |
 | [`xhs-food-card`](./xhs-food-card/) | 小红书美食卡片 | 生成夏日甜品 / 零食海报、食材步骤、热量估算和小红书发帖文案 |
 
+## 示例效果 / Examples
+
+下面是目前几个 Skill 的实际输出。视频使用封面图展示，点击封面即可打开完整
+MP4；图片样例直接展示最终海报效果。
+
+### bbshare-video：AI 讲解视频
+
+[![bbshare-video AI narrated explainer video demo with HTML slides, voiceover, subtitles, and background music](./bbshare-video/examples/cover.png)](./bbshare-video/examples/skill-01-stop-reteaching-ai.mp4)
+
+[观看完整讲解视频](./bbshare-video/examples/skill-01-stop-reteaching-ai.mp4)
+
+### book-account-video：读书账号短视频
+
+[![book-account-video Chinese book review short video demo with narration, captions, cover, and background music](./book-account-video/examples/cover.png)](./book-account-video/examples/huozhe.mp4)
+
+[观看完整读书短视频](./book-account-video/examples/huozhe.mp4)
+
+### xhs-food-card：小红书美食卡片
+
+![小红书夏日美食卡片示例：柠檬蜂蜜冻配方海报](./xhs-food-card/examples/08-ningmeng-fengmi-dong.png)
+
+![小红书水果酸奶碗示例：火龙果酸奶碗食谱信息图](./xhs-food-card/examples/09-huolongguo-suannai-wan.png)
+
 ## 快速开始
 
 ### 安装单个 Skill
@@ -132,10 +155,15 @@ cp -R bbshare-video ~/.claude/skills/
 
 ```text
 bbshare-skills/
+├── .gitignore
+├── README.md
 ├── bbshare-video/       # 讲解视频生产流水线
+│   └── examples/         # 讲解视频样例
 ├── book-account-video/  # 读书账号短视频
+│   └── examples/         # 读书短视频样例
 ├── video-download/      # 视频下载
 └── xhs-food-card/       # 小红书美食卡片
+    └── examples/         # 美食卡片样例
 ```
 
 每个 Skill 的目录可以独立使用，通常包含：
