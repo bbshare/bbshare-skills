@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1440">
+    <title>Book Account Cover</title>
+    <style>
+      html, body {
+        width: 1080px;
+        height: 1440px;
+        margin: 0;
+        overflow: hidden;
+        background: #07090b;
+        font-family: "Hiragino Sans GB", "PingFang SC", sans-serif;
+      }
+      .cover {
+        position: relative;
+        width: 1080px;
+        height: 1440px;
+        overflow: hidden;
+        color: #fff;
+      }
+      .bg {
+        position: absolute;
+        inset: -48px;
+        background: url("../assets/pixabay/still-life-7923785.jpg") center / cover;
+        filter: brightness(0.76) contrast(1.1) saturate(0.9);
+        transform: scale(1.1);
+      }
+      .shade {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 70% 28%, rgba(255,157,70,.34), transparent 27%),
+          linear-gradient(180deg, rgba(4,5,7,.2), rgba(4,5,7,.72) 62%, rgba(3,4,6,.95));
+      }
+      .headline {
+        position: absolute;
+        left: 52px;
+        right: 52px;
+        top: 452px;
+        text-align: center;
+      }
+      .headline span {
+        display: block;
+        margin: 8px 0;
+        color: #fff;
+        font-size: 120px;
+        font-weight: 900;
+        line-height: 1.05;
+        -webkit-text-stroke: 8px #000;
+        paint-order: stroke fill;
+        text-shadow: 0 9px 0 rgba(0,0,0,.98), 0 0 42px rgba(0,0,0,.98);
+      }
+      .subtitle {
+        position: absolute;
+        left: 92px;
+        right: 92px;
+        top: 765px;
+        padding: 18px 24px;
+        text-align: center;
+        color: #ffe2ae;
+        font-size: 43px;
+        font-weight: 900;
+        border-top: 2px solid rgba(255,214,154,.45);
+        border-bottom: 2px solid rgba(255,214,154,.38);
+        text-shadow: 0 4px 0 #000, 0 0 18px rgba(0,0,0,.95);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="cover">
+      <div class="bg"></div>
+      <div class="shade"></div>
+      <section class="headline">
+        <span>HOOK_LINE_1</span>
+        <span>HOOK_LINE_2</span>
+      </section>
+      <div class="subtitle">《BOOK_TITLE》</div>
+    </main>
+  </body>
+</html>

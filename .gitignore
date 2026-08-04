@@ -1,0 +1,12 @@
+# Python bytecode and local caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+
+# macOS metadata
+.DS_Store

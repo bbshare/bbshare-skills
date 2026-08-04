@@ -1,0 +1,4 @@
+interface:
+  display_name: "Book Account Video"
+  short_description: "End-to-end Chinese book account short-video workflow"
+  default_prompt: "Use $book-account-video to create a Douyin-style Chinese book account short video from a book title."
