@@ -1,43 +1,58 @@
 # HyperFrames Patterns
 
+## Environment
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"   # Node ≥ 22 for hyperframes
+```
+
 ## Project Shape
 
-Use a single `index.html` composition unless the project becomes unusually large.
+Single `index.html`, `1080x1440`, `data-duration` = **master** audio length  
+（`audio/master_with_intro.wav` = 旁白 + **BGM**，见 `audio-bgm.md`）。
 
-Root:
+Mode A 典型场景序：
+
+1. `scene-opener` — 碎玻璃片头（`opener.md`）
+2. `scene-body-a` — 情绪静帧 1 + 短句字幕轮换
+3. `scene-body-b`（可选）— 静帧 2，中段切换
+
+固定 UI：顶书名 + 作者；底水印；中下字幕。
 
 ```html
-<div id="root" data-composition-id="main" data-width="1080" data-height="1440" data-duration="38.952" data-fps="30">
-  <audio id="master-audio" src="audio/master_with_intro.wav" data-start="0" data-duration="38.952" data-track-index="0"></audio>
+<div id="root" data-composition-id="main" data-width="1080" data-height="1440" data-duration="46.416" data-fps="30">
+  <audio id="master-audio" src="audio/master_with_intro.wav" data-start="0" data-duration="46.416" data-track-index="0"></audio>
 </div>
 ```
 
-Keep `<audio>` as a direct child of the root.
+`<audio>` must be a direct child of root. `<video>` backgrounds also as direct children of scene or use class="photo" on video inside scene — per hyperframes-core, video playback is framework-owned.
 
 ## Scenes
 
-Use one full-screen section per beat:
+One full-screen section per beat. Image or video background:
 
 ```html
-<section id="scene-04" class="clip scene" data-start="15.04" data-duration="5.00" data-track-index="4">
-  <img class="photo" src="assets/pixabay/tea-cup.jpg" alt="" data-layout-ignore>
-  <div class="caption low" data-layout-allow-occlusion>
-    <span class="zh" data-reveal="15.04">有些关系</span>
-    <span class="zh gold" data-reveal="16.00">看起来是情分，其实是交换</span>
+<section id="scene-04" class="clip scene rain" data-start="17.82" data-duration="4.02" data-track-index="4">
+  <img class="photo" src="assets/generated/scene-04-rain-window.jpg" alt="" data-layout-ignore>
+  <div class="atmosphere cool" data-layout-ignore></div>
+  <div class="rain-overlay" data-layout-ignore></div>
+  <div class="caption mid" data-layout-allow-occlusion>
+    <span class="zh tight" data-reveal="17.82" data-hide="19.63">老妇人只回了一句</span>
+    <span class="zh tight gold" data-reveal="19.63">我不拔，就会饿死</span>
   </div>
 </section>
 ```
 
-## Captions
+Video background variant:
 
-For final sync reliability:
+```html
+<video class="photo" src="assets/library/rain-01.mp4" muted loop playsinline data-layout-ignore></video>
+```
+
+## Captions — hard cut only
 
 ```css
-.caption span {
-  opacity: 0;
-  transform: translateY(0);
-  filter: none;
-}
+.caption span { opacity: 0; transform: translateY(0); filter: none; }
 ```
 
 ```js
@@ -51,61 +66,41 @@ captionLines.forEach((line) => {
 });
 ```
 
-Do not use fade/blur/stagger while debugging voice-caption sync.
+Use `data-hide` when one scene has multiple semantic beats.
 
-Use `data-hide` whenever one scene contains multiple semantic beats:
+## Motion
 
-```html
-<span class="zh" data-reveal="30.60" data-hide="34.99">当你站在人群里</span>
-<span class="zh" data-reveal="32.47" data-hide="34.99">最危险的不是被别人骗</span>
-<span class="zh" data-reveal="34.99">是把别人的声音</span>
-<span class="zh" data-reveal="36.45">误以为是自己的想法</span>
+See `references/motion.md`. Register one paused GSAP timeline at `window.__timelines["main"]`.
+
+## package.json scripts
+
+```json
+{
+  "scripts": {
+    "dev": "npx hyperframes play --port 3004 --no-open",
+    "check": "npx hyperframes lint && npx hyperframes validate && npx hyperframes inspect",
+    "render": "npx hyperframes render --quality high --output renders/final.mp4"
+  }
+}
 ```
 
-Caption audit before preview:
-
-- Compare every important caption to `audio/voiceover_with_intro.txt`.
-- Keep core words in thesis lines. Do not reduce `而是一个人一旦进入群体，判断力会怎样被情绪接管` to `是进入群体之后`.
-- Check that only the current point is visually dominant; stale text should hide.
-- Use the approved narration as the exact caption source. ASR timestamps locate the cue, but ASR characters do not get copied into the final subtitle.
-- Audit the normalized concatenation of all caption spans against the narration file. Remove only whitespace and punctuation; the remaining character sequences must match exactly.
-- Move scene boundaries to sentence or semantic-beat boundaries. A sentence must not be cut by a scene transition just because the old storyboard used a fixed duration.
-- Capture snapshots at cue boundaries, especially around `not/but`, warning, and closing beats.
-
-Brightness audit before preview:
-
-- Contact sheets should show visible subjects and midtones, not only white text over near-black images.
-- Darken the caption area with overlays if needed; do not darken the entire image by default.
-- For dark sources, raise `brightness()` first and rely on text outline/shadow for readability.
-
-## Validation
-
-Run before preview/render:
+## Validation pipeline
 
 ```bash
 npm run check
+npx hyperframes snapshot --at 1.0,6.5,12.0,19.0,24.5,31.0,38.0,43.5 --output snapshots/check-v1 --describe false
+npx hyperframes play --port 3004 --no-open
 ```
 
-Use snapshots for visual checks:
-
-```bash
-npx hyperframes snapshot --at 4.1,8.2,15.2,20.2,35.2 --output snapshots/check-v1 --describe false
-```
-
-Preview:
-
-```bash
-npx hyperframes play --port 3003 --no-open
-```
-
-Render only after user approval:
+Render **only after user approves** preview:
 
 ```bash
 npx hyperframes render --quality high --output renders/final.mp4
+ffprobe -v error -show_entries format=duration,size -of json renders/final.mp4
 ```
 
-Verify render:
+## Caption / brightness audit
 
-```bash
-ffprobe -v error -show_entries format=duration,size -show_entries stream=codec_type,codec_name,width,height,r_frame_rate -of json renders/final.mp4
-```
+- Compare captions to `audio/voiceover_with_intro.txt`
+- Preserve core words in thesis lines
+- Contact sheet must show visible midtones, not text-only on black

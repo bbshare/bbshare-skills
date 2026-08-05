@@ -1,199 +1,240 @@
-# Distilled Viral Method For This Book Account Format
+# Narration & Format Method
 
-This is the saved result from the completed reference teardown. Use it directly; do not re-teardown the old references for each new video.
+默认 **Mode A**。用户明确要求讲情节/论证时才用 Mode B。
 
-## Format
+## 规格
 
-- Aspect: `3:4`, composition size `1080x1440`.
-- Duration: usually `35-60s`; allow `60-90s` when the approved narration is naturally longer. Do not compress a good spoken script just to hit a number.
-- Video type: faceless book-review/read-book insight clip.
-- Rhythm: fixed opener, then one visual beat per sentence or half-sentence.
-- Motion: restrained slow push, pan, vertical lift, slight drift, or subtle mist/parallax. Vary the treatment by scene; avoid fast cuts and busy transitions.
-- Tone: human, oral, and opinionated. Avoid polished AI-summary phrasing.
+- Aspect: `3:4`，`1080x1440`，30fps
+- Mode A duration: **31–36s**（硬上限 40s）
+- Mode B duration: **35–42s**（硬上限 45s）
+- Faceless；固定系列 UI + 片头
+- **必须有 BGM**（见 `audio-bgm.md`）
 
-## Default Narration Pattern: Hook-First Five-Part Script
+---
 
-This is now the default script mode for new book-account videos unless the user explicitly asks for the old fixed spoken opener.
+## Mode A：情绪许可证 monologue（默认）
 
-Before drafting:
+### 写作前
 
-1. List 3 core viewpoints of the book.
-2. Select the single most counterintuitive / offensive viewpoint.
-3. Write the whole script around only that one viewpoint.
+1. 列出 3 个「情绪许可证」候选（删掉书名仍想转发的断言）
+2. 选定 1 个最刺痛 / 用户指定的
+3. 只围绕这一条写旁白（**禁止 3 套金句复读同一结论**）
+4. **频道自检**（见下「说破 vs 疗愈」）——对不上书的冷硬气质时换钩子，不要硬写温柔许可
 
-Output for user review must include the 3 viewpoints, the selected viewpoint, then the script.
-
-Five-part structure:
-
-1. **Hook in first 3s**: first sentence is a counterintuitive claim, painful question, or concrete disturbing scene. It must be book-specific. If it can fit another book, rewrite.
-2. **Book title in sentence 2 or 3**: do not start spoken audio with `今天分享的是...` by default.
-3. **Grounded case**: use a real argument or original example from the book. Do not invent a lifestyle example just to make it "relatable". If uncertain, verify from a reliable source or ask the user to confirm the example first.
-4. **Emotional reversal**: include one turn such as `听起来很冷血对吧？但这本书真正想说的，恰恰相反。` Then explain for no more than 4 sentences.
-5. **Controversial comment ending**: end with a question viewers can argue about.
-
-Language:
-
-- Oral and conversational, like talking to a friend.
-- Use `你` often, but not mechanically.
-- Alternate short impact lines with longer setup lines. Do not chop all lines into 5-8 character fragments.
-- Keep each sentence under about 25 Chinese characters where practical.
-- Avoid `首先/其次/最后`, translation tone, encyclopedia summary, and soft promotional language.
-- Keep 1-2 gold lines maximum, placed after the reversal.
-
-Reference pattern for 《自私的基因》:
+### 结构
 
 ```text
-你有没有想过，你对家人的爱，可能是被"设计"出来的？
+今天分享的是。
+《书名》。
 
-有一本书，四十多年来一直在得罪人，它就是道金斯的《自私的基因》。
+[钩子断言 —— 前 3s 内必须刺中；一句可独立转发]
 
-它说了一个让人不舒服的真相：你不是基因的主人，你只是基因的载体。
+[展开：场景/对照/机制 —— 密度见下，不要只砸金句]
 
-母亲为什么愿意为孩子牺牲？这本书会告诉你，因为孩子身上有她一半的基因——保护孩子，就是基因在保护自己的副本。
+[金句收束 —— 可截图；全片主金句 1 句，辅最多 1]
 
-听起来很冷血对吧？
-
-但这本书真正想说的，恰恰相反。
-
-基因是自私的，可人不必是。
-
-我们是地球上唯一能对基因说"不"的物种。你选择善良、选择克制、选择不占那个便宜——每一次，都是在改写基因给你的剧本。
-
-所以别再用"人性本来如此"给自己找借口了。
-
-基因写了开头，但结局，握在你手里。
-
-你觉得，人到底能不能战胜本能？评论区聊聊。
+[可选半句互动]
 ```
 
-Pattern essence:
+### 语言 · 密度（两档，默认先短后可加厚）
 
-- One offensive thesis, not a survey of the book.
-- Book-specific hook: love for family as gene design.
-- Real book-grounded example: parent-child genetic relatedness / kin selection logic.
-- Reversal: the book looks cold but actually opens room for human choice.
-- One or two memorable lines only: `基因是自私的，可人不必是。` and `基因写了开头，但结局，握在你手里。`
-- Ending asks a fight-worthy question.
+| 档 | 何时 | 口播体感 | 字数粗估 | 成片体感 |
+| --- | --- | --- | ---: | --- |
+| **A-短** | 默认；对标听页 31–36s | 歌词短句，一句一行 | ~90–140 | 31–40s |
+| **A-密** | 用户嫌「像写诗 / 太空 / 字太少」 | **聊天口播**：有铺垫、对照、轻锚，仍口语 | ~250–350 | **45–60s+** 可接受 |
 
-## Old Fixed Opener
+硬规则：
 
-Use this only when the user explicitly asks for the fixed account opener or when continuing an older project built with that style.
+- **自然旁白优先于秒数**；用户批准的密稿可到 60–90s，**禁止为压时长把话拆成电报诗**
+- 字幕仍可一屏一行短切；**口播文稿 ≠ 字幕行宽**——口播可以成段，字幕再切
+- 口语、慢、可停顿；像对一个难受的朋友说话
+- 短句为主；A-短尽量每句 ≤14 字；A-密允许连续 2–4 句说清一个意思
+- 用 `你`，但不要机械每句都你
+- 全片金句 **1 句主 + 最多 1 句辅**（钩子可与主金句同构，不要第三套「换皮复读」）
+- 禁止：首先/其次/最后、翻译腔、百科摘要、「这本书告诉我们」
+- 禁止：为了「像书评」硬塞作者生平、目录、三点干货
+- 禁止：**疗愈腔假许可**当钩子（见下）
 
-Use a reusable account opener, but generate the voice in one pass with the main narration:
+### 说破 vs 疗愈（频道硬门 · 《活着》复盘）
+
+爆款书评号默认走 **「说破 / 反鸡汤 / 站队」**，不是心理咨询摸头。
+
+| 弱（疗愈） | 强（说破） |
+| --- | --- |
+| 找不到意义，不丢人 | 熬过去，不会有奖。只有下一天 |
+| 你要学会接纳自己 | 苦没有积分，熬也不一定有回报 |
+| 撑下去本身就是意义（哲学复读） | 你等生活发奖——它不颁奖 |
+
+自检三问：
+
+1. **删书名还想不想转发？**（许可证）  
+2. **想转的人是在「被安慰」还是「站队反鸡汤」？** 后者通常更有点赞/分享冲动  
+3. **钩子气质是否贴本书？**（《活着》冷硬忍耐 ≠ 温柔自我接纳）
+
+对照系列已成片钩子（同构标准）：
+
+- 《人性的弱点》：你越批评一个人，他越不可能改  
+- 《罗生门》：骂别人有多大声，只是还没轮到自己  
+- 《活着》终态：熬过去，不会有奖 / 只有下一天  
+
+钩子必须是 **一句完整、可截图的断言**，不是半截哲学起兴。
+
+### 用户打回文案时（接 dbs 工具箱）
+
+| 用户信号 | 优先动作 | 工具（若本机有 `~/.codex/skills/dbs*`） |
+| --- | --- | --- |
+| 文案不行 / 没戳中 / 能不能发 | 先找 **核心是否被稀释** | `/dbs-resonate` |
+| 没共鸣、不想转、没点赞冲动 | 查 **沉默解除 + 传播入口 + 立场** | `/dbs-spread` + `/dbs-hook` |
+| 开头平 / 像写诗太空 | 换硬钩子或加厚口播密度 | `/dbs-hook`；改 A-密 |
+| 稿子不顺、会划走 | 只查衔接不改观点 | `/dbs-script-flow` |
+
+流程：**诊断 → 改一版完整正文 → 写回 `narration-review.md` → 再停旁白门**。禁止只贴「建议」不落定稿。
+
+### 书怎么出现
+
+- 口播 **两拍**（**一次 TTS 录完**，文稿拆行）：
 
 ```text
-今天分享的是，《本期书名》。
+今天分享的是。
+《书名》。
 ```
 
-Visual opener:
+  禁止合成一行「今天分享的是，《书名》。」——字幕无法分拍（见 `opener.md` / 罗生门）。
+- 画面：中字先出「今天分享的是」→ 口播书名时中字「《书名》」→ 气口后再稳上顶栏《书名》+ 作者  
+- 正文里最多再点一次书/作者，不要反复报书名
 
-- 0.0-4.0s-ish depending on TTS timing.
-- Display `今天分享的是` then full book title.
-- The first real hook must be heard or readable within `3-5s`; if the spoken opener takes most of that time, reveal the hook caption immediately after the title phrase.
-- Style must match the main captions: large heavy Chinese, white or blue-white fill, thick black outline/shadow.
-- Add a small transition into the body if it helps, but keep it understated.
-- Keep enough vertical spacing between top title, author line, opener subtitle, and book visual. Do not let small opener text cling to the book/card edge.
+### 原作锚点（轻量）
 
-## Script Formula
+Mode A **不讲情节**，但断言须与书一致、不瞎编名言。  
+不确定时：用「卡耐基说/这本书的意思是」弱锚定，或先问用户。
 
-For legacy fixed-opener scripts, use this beat structure as a guide, not a rigid template:
+### Mode A 参考骨架
 
-1. Opener: `今天分享的是，《书名》。`
-2. Main hook: one sentence that makes the viewer feel "this is about me" within the first few seconds.
-3. Reframe the book: one clear contrast or reversal. `不是 X，而是 Y` can work, but do not force it if it sounds templated.
-4. Two relationship/human-nature observations.
-5. One practical warning or boundary insight.
-6. Closing sentence: `这不是冷漠，是成年人保护自己的开始。` or a theme-specific equivalent.
+**A-短 · 《人性的弱点》**
 
-Good sentence traits:
+```text
+今天分享的是。
+《人性的弱点》。
 
-- Short, oral, calm.
-- One idea per sentence.
-- Uses contrast when it is natural: `不是...而是...`, `看起来...其实...`.
-- Avoids plot summary unless the user asks for plot.
-- Has a person behind it: a judgment, a little friction, a specific warning, not a smooth encyclopedia summary.
-- Avoids clustered AI tells: repeated neat contrasts, generic "真正写的", slogan-like endings, grand abstractions, and perfect parallelism.
+你越批评一个人，他越不可能改。
 
-## Narration Self-Review Gate
+不是他听不懂，是他在护自己的面子。
 
-Before TTS, self-review and revise the narration, then stop and show the user the best candidate for approval.
+卡耐基开篇就写：永远不要指责、批评、抱怨。
 
-Also show a compact audit:
+批评伤的是自尊，不是问题本身。
 
-- Hook: which line prevents swiping in the first `3-5s`.
-- Self-review changes: what was changed after the first draft.
-- Human flavor: what makes it sound like a person, not an AI summary.
-- Caption-preserved lines: logic sentences whose core words must stay in subtitles.
-- Risks: any sentence that may feel too formulaic or too long.
+想改一个人，先别拆他的台。
 
-If `renwei-writing` is available, read its `SKILL.md` and post-edit checklist before presenting the narration. Apply its principles lightly: do not over-polish; keep oral roughness where it helps.
+尊重他，再谈事。
+```
 
-Do not show a raw first draft unless the user explicitly asks to see rough options. The normal approval artifact is the self-reviewed version the agent believes is ready to produce.
+**A-密 · 《活着》方向（用户嫌太空时）**
 
-## Visual Rules
+```text
+今天分享的是。
+《活着》。
 
-Select visuals by content meaning, not by copying the reference video's exact footage.
+很多人撑到现在，其实都在等一件事：
+等熬过去，生活会发奖。
+……（铺垫「认账 / 没白扛」）
 
-Recommended motifs, selected by topic:
+可余华写的《活着》，把这层期待拆得很干净。
+熬过去，不会有奖。只有下一天。
 
-- Books, candlelight, windows, doors, tea, courtyards, ledgers, coins, rain, shadows.
-- For crowd/psychology/cognition books: crowds, public spaces, windows, newspapers, screens, notebooks, solitary figures, books.
-- For wealth/business books: desks, ledgers, markets, city light, receipts, tools, office scenes, books.
-- For literary/human-nature books: old books, courtyards, tea, doorways, candlelight, rain, shadows.
-- Fallback hierarchy: literal content match, theme-adjacent imagery, then emotionally matched scenery.
-- If literal images look forced or inconsistent, use one coherent world of evocative scenery: misty mountains, rivers, forests, paths, solitary trees, rain, clouds, or boats.
-- In scenic fallback mode, captions carry the argument and landscapes carry the emotion. Do not force every sentence into a literal stock-photo illustration.
-- Animate scenic stills with varied, restrained motion. Alternate slow push, horizontal pan, vertical lift, slight drift, and subtle mist/parallax rather than repeating the same zoom.
-- Choose the brightness by the subject. Dark is only one option, not the default.
-- Use clean contrast areas behind captions, but keep the main image readable with visible midtones.
+……（福贵轻锚 + 对照鸡汤话术 + 卸自我审判）
 
-Avoid:
+没什么好盼的时候，你还睁着眼，这就够了。
+```
 
-- Real film/TV faces or recognisable dramatic stills.
-- Erotic or sensational imagery.
-- Bright stock-like scenes.
-- Busy textures behind captions.
-- Over-dark grading that hides the subject and makes the video feel muddy.
+要点：钩子可先写「观众心里在等什么」，再一刀拆穿；**展开要有肉，金句嵌在话里，不要三连金句裸奔**。
 
-## Caption Style
+（成片以用户批准的 `voiceover_with_intro.txt` 为准。）
 
-- Chinese caption: 68-78px for normal lines; 90-120px for cover image hero text.
-- Heavy black outline/shadow; white fill; occasional warm-gold/blue-white accent.
-- Main video captions should be 1-2 lines where possible.
-- For sync-critical previews, use hard-cut captions: no fade, no blur, no stagger.
-- Optional English subtitle can add texture, but do not let it compete with Chinese.
-- When a scene has multiple semantic beats, old caption lines must hide via `data-hide` so the current spoken point stays visually dominant.
-- Do not over-compress important logic sentences. For lines with `不是...而是...`, `最危险的不是...而是...`, or a book's core thesis, subtitles should preserve the key words from the narration.
+### 字幕（Mode A）
 
-## Audio Rules
+- 一屏 **一行** 中文；尽量 4–12 字
+- 可加小英文装饰（不抢戏、可机翻意译）
+- 硬切；旧句 `data-hide`
+- 金句可略放大或点金色，但不要满屏特效
 
-- Generate the approved narration as one TTS file; do not splice a separate intro voice into it.
-- Default opener is voice-free: play visual SFX/BGM for `3.56s`, then start the TTS. Shift all scene and caption cues by the same `3.56s` offset.
-- If the reusable opener contains reference speech, separate it with Demucs and use only the `no_vocals` stem. The final master may contain only this episode's TTS, opener SFX, and BGM.
-- Mix with `amix=normalize=0` so a short SFX bed is not automatically divided down by the number of input tracks. Confirm the first `3.56s` has audible peaks.
-- Keep BGM subtle.
-- Use one final master audio file in the composition.
-- Treat final audio as the source of truth for `data-duration`.
+### 画面（Mode A）
 
-## Packaging Rules
+- **1–2** 张情绪主视觉 + 慢推/微移 + 粒子
+- 情绪色服务主线（例：批评/人际 → 冷雨窗、空走廊、独影，不要热闹合影）
+- 见 `visual-sourcing.md`
 
-- The cover should match the video's visual world and brightness; scenic fallback is fine when literal book imagery is weak.
-- The title must be faithful to the book's actual argument. Prefer a specific question or tension from the thesis over a generic formula such as "看透人性".
-- Save the final title and posting body to `docs/posting-copy.md` as well as returning them in chat.
+### 审核交付物
 
-## Lessons Learned
+`docs/narration-review.md` 必须含：
 
-- Separate intro TTS splicing can make breath, loudness, and emotional pacing feel wrong.
-- Caption animation can make correctly timed subtitles feel late; remove it when debugging sync.
-- Static silence detection is not enough for Chinese TTS. Use token timestamps when possible, then manually verify.
-- Use local word timestamps on the clean voice track. `faster-whisper` is a practical fallback when a `whisper-fast` executable is not installed; use its recognized text for timing only, because Chinese names and homophones can be wrong.
-- Keep the approved narration as the subtitle source of truth. Normalize and compare the concatenated caption text against the narration before preview; no omitted words or silent paraphrases.
-- Rebuild scene boundaries around sentence and semantic-beat boundaries after timing. Do not preserve a storyboard duration if it cuts through a spoken sentence.
-- If Whisper is slow or unreliable, use `ffmpeg silencedetect` as the fallback to place first-pass cue boundaries, then visually check key snapshots.
-- A caption can be "on time" but still feel wrong if old lines remain onscreen. Hide stale lines.
-- Screen captions that over-summarize the voice feel like missing words. Audit text against the narration before preview.
-- Contact sheets should be checked for brightness. If the image reads as black-on-black except for text, raise exposure or reduce overlay.
-- Generate a fresh visual asset set for each book. Reuse the motion grammar and opener structure, not the previous episode's footage.
-- Pre-crop wide generated or downloaded images to intentional portrait assets before scene assembly; otherwise the vertical `object-fit: cover` crop can remove the narrative subject.
-- HyperFrames render should happen only after the user approves the browser preview.
-- After rendering, inspect an MP4 contact sheet at the hook, example, reversal, warning, and closing question. A successful browser preview alone does not certify the export.
+- 3 个许可证候选 + 选定
+- 完整旁白
+- 钩子 / 金句 / 预估时长 / 风险句 / 字幕切分建议
+
+**视觉线 B（样例线）额外必含**（可写在同文件或 `content-pack.md`）：
+
+- **两字主情绪** 候选 + 选定 ⭐（从书内核提炼，例：《活着》→ 撑着）  
+- **中英字幕表**（每句中文对应一行英文意译）  
+- 分镜意图（远行 / 坐 / 走…）  
+
+详见 `visual-line-sample.md`。
+
+**→ STOP 等用户通过。**
+
+---
+
+## Mode B：单观点书评（可选）
+
+仅当用户明确要求。
+
+### 写作前
+
+1. 全书 3 个核心观点  
+2. 选 1 个最反常识 / 最得罪人的  
+3. 只写这一条  
+
+### 五段式
+
+1. **Hook 3s**：书特定、反常识  
+2. **书名**在第 2–3 句（若已用固定口播片头，则片头报书名，此处不重复啰嗦）  
+3. **原作锚点**：真实论据/例子，不编生活方式段子  
+4. **情绪反转**：≤4 句  
+5. **结尾**：金句优先；争议提问可选  
+
+语言同旧版：口语、一人称判断、金句 1–2 句。
+
+### 画面（Mode B）
+
+可 4–8 场景，语义匹配；相邻 motion 不重复。仍建议 ≤40s 体感。
+
+---
+
+## 旁白自检（两模式通用）
+
+提交用户前自检并改一版：
+
+| 项 | 问 |
+| --- | --- |
+| 钩子 | 前 3s 能否阻止上滑？是否 **一句完整断言**（非半截哲学）？ |
+| 许可证 | 删书名还想不想转发？（Mode A 必过） |
+| 频道 | 说破/站队，还是疗愈摸头？是否贴本书气质？ |
+| 核心 | 是否只服务 **一条** 机制？有没有 3 套金句换皮复读？ |
+| 密度 | 像聊天还是像诗？用户若要密稿，有没有铺垫/对照/轻锚？ |
+| 人口味 | 像人对人，不像摘要、不像书评说教（「是让你看见…」易站高处）？ |
+| 时长 | 自然语速是否成立？**密稿勿为压秒砍语气** |
+| 金句 | 是否只有 1–2 句、落在后半或钩子位？ |
+| BGM 预留 | 句间有无自然气口（不要字字相连到无法呼吸） |
+
+---
+
+## Caption 样式
+
+- 中文：约 68–78px；金句可到 90px  
+- 白字 + 厚黑描边/阴影  
+- 调试同步时禁用 fade/blur/stagger  
+
+## Audio
+
+- 一次 TTS + **强制 BGM 混音** → 单一 master  
+- 见 `audio-bgm.md`、`doubao-tts.md`  

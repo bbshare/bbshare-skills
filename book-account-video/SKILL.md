@@ -1,139 +1,255 @@
 ---
 name: book-account-video
-description: Create Douyin/TikTok-style Chinese book account short videos from a book title, book notes, or a theme. Use when the user wants to make, iterate, render, package, or publish a read-book/book-review video with human-reviewed narration, fixed opener, Doubao TTS, BGM, captions, cover image, and posting copy. Preserve natural approved narration length, use the saved viral reference methodology, and do not re-analyze reference videos unless the user explicitly asks for a new teardown.
+description: "Create Douyin/TikTok-style Chinese book-account short videos (读书笔记/书评短视频) from a book title or theme. Use when the user wants to make, iterate, preview, render, or publish a faceless book-review clip with hook-first monologue, captions, mandatory BGM, cover, and posting copy. Two visual lines: (A) 听页 glass+book cards; (B) sample-style brush two-char opener + landscape side-profile + bilingual ZH/EN captions + burned-in first-frame cover. Natural narration length wins over arbitrary duration caps. Hard gate: stop for narration/content-pack approval before TTS when required. Default Mode A = emotional-license monologue. Uses HyperFrames + Doubao TTS."
 ---
 
-# Book Account Video
+# Book Account Video（读书笔记 / 书评短视频）
 
-## Core Rule
+对标账号形态：`@听页/书评分享` 类爆款结构 + **样例线**（毛笔两字 / 山水人物 / 中英字幕）。  
+**借鉴结构与气质，自建画面与 UI，禁止贴爆款原片当片头。**  
+默认交付 **情绪许可证 monologue**，不是百科书评、不是情节解说。
 
-Use the saved production method in `references/method.md` as the default. Do not ask to download or re-teardown viral videos for ordinary new book-account videos. Only redo reference analysis when the user explicitly supplies new reference videos and says the style should change.
+## 双视觉线（先选线再开工）
 
-## Production Invariants
+| 线 | 名称 | 何时用 | 规格摘要 |
+| --- | --- | --- | --- |
+| **A（默认）** | **听页线** | 未指定；系列玻璃账号 | 碎玻璃 + 浮层书卡；默认 3.56s 无口播片头；中文大字；2–3 情绪场 |
+| **B** | **样例线** | 用户给 sample、要毛笔两字 / 中英 / 山水侧脸 | 首帧封面烧录 + 两字毛笔裂口 + 书封 3D 轮播 + 5 镜半屏人物；VO 可从 0 起 |
 
-- Preserve the approved narration at its natural length. Do not squeeze a long, human-sounding script into an arbitrary 30-60s target; let the final TTS duration drive the timeline.
-- Default to a **voice-free visual opener**: 0-3.56s uses the glass/shard/book-card animation plus SFX and BGM; the approved narration starts at 3.56s. Only add spoken opener words when the user explicitly requests them.
-- When the opener is voice-free, delay the TTS by the opener duration and shift every scene start, caption reveal, and caption hide by the same offset. Never fix audio without moving the visual cue table.
-- Use a clean reusable opener SFX when available. If it contains reference speech, run Demucs `--two-stems=vocals` and use only `no_vocals`; never import the reference voice into the master.
-- Mix with explicit levels and `amix=normalize=0`; default amix normalization can make a short opener sound silent. Verify the first opener segment has audible peaks before preview.
-- The public preview URL should stay simple: `http://localhost:<port>/simple-preview.html`. Cache-busting belongs inside the audio `src`, not in the user-facing URL. If a port is occupied, choose an available port without killing another project.
-- Copy the reference video's method, never its footage. Every new book episode needs a fresh visual set chosen from the narration; do not clone the previous episode's image folder just because the composition structure is reusable.
-- Normalize source images to the portrait canvas before judging the composition. For a `1080x1440` video, crop or generate each still to a `3:4` portrait asset first; do not rely on `object-fit: cover` to rescue a wide image and accidentally crop away the subject.
-- Titles must describe the book's actual thesis, not a generic human-nature clickbait formula. Check the final title against the book's argument before packaging.
+- **一集只选一线**，禁止玻璃片头 + 毛笔片头混剪。  
+- **B 线必读**：`references/visual-line-sample.md`  
+- **A 线必读**：`references/opener.md`
 
-For video implementation, use the installed HyperFrames skills first:
+参考成片：
 
-1. Read `hyperframes`.
-2. Read `hyperframes-core` before editing composition HTML.
-3. Read `hyperframes-cli` before preview/render.
-4. Read `hyperframes-media` when generating TTS, BGM, SFX, transcription, or subtitles.
+| 项目 | 线 | 要点 |
+| --- | --- | --- |
+| `renxingderuodian-video` | A | 片头/系列资产 |
+| `luoshengmen-video` | A | Whisper 对轴 + 正片多层动效 |
+| `huozhe-video` | A | 文案四轮：说破 + A-密 |
+| **`huozhe-sample-video`** | **B** | **样例线终态**：撑着 / 中英 / 首帧封面 / 半屏人物 |
+
+## Hard Gates（不可跳过）
+
+1. **旁白 / 内容包门**：写完旁白（B 线含 **两字主情绪 + 中英表**）并自检后，**必须停下**交给用户。**明确通过前**禁止 TTS / 大体积出图 / `index.html` 成片预览 / render。用户明确「直接做 / 按样例做」可边做边以 content-pack 为据，仍须落盘文稿。  
+2. **画面审核门**：预览 / snapshot 给用户后，**批准前禁止 render**（用户已说导出且画面已批除外）。  
+3. **导出包（硬门）**：render 成功后同一回合必须落盘：  
+   - `covers/cover.png` + `cover.jpg`  
+   - `docs/posting-copy.md`  
+   - **B 线另验**：成片 **第 0 帧非黑屏**（首帧封面烧录）  
+4. **BGM 硬门**：禁止无 BGM 成片。  
+5. **人声硬门**：仅本期 TTS 一种音色。  
+6. **片头硬门（按线）**：  
+   - **A**：0–3.56s 默认可无口播，仅 SFX+BGM；旁白从 3.56s 起则场景/字幕整表偏移。  
+   - **B**：0 帧必须是封面；毛笔裂口 + 书封三动效；VO 可与画面同起。  
+7. **对轴硬门**：延迟旁白则场景与字幕同步偏移；Whisper 对中文。  
+8. **标题硬门**：落在本书真实核心，禁止泛化「看透人性」。  
+9. **B 线人物硬门**：正片人物约占 **≤半屏高**；每镜 **动作姿势不同**。
+
+## Tooling
+
+Read before implementation:
+
+1. `references/viral-formula.md` — 为何这样拍  
+2. `references/method.md` — 旁白 / 说破 vs 疗愈 / A-短·A-密  
+3. **线 A** → `references/opener.md`  
+4. **线 B** → `references/visual-line-sample.md`  
+5. `references/audio-bgm.md` · `references/doubao-tts.md`  
+6. `references/lessons-learned.md`  
+7. `references/packaging.md` — 封面 + **首帧烧录** + 文案  
+8. `hyperframes` → `hyperframes-core` → `hyperframes-cli`  
+9. `imagine` / `media-use` 按需  
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+# Node ≥ 22（推荐 24+）
+```
+
+## 双模式（文案 · 与视觉线正交）
+
+| 模式 | 名称 | 何时用 | 目标时长 |
+| --- | --- | --- | ---: |
+| **A（默认）** | **情绪许可证 monologue** | 用户未指定 | **31–36s** 短；或 **A-密 45–90s** |
+| **B（可选）** | **单观点书评** | 用户明确要情节/论证 | **35–45s** 体感 |
+
+### Mode A 本质
+
+> 用一本书当权威背书，讲一句观众已经隐隐觉得、但需要别人替自己说出口的话。
+
+- 书名 = 可信度标签  
+- 文案 = 情绪许可证（默认 **说破/站队**，不是疗愈摸头）  
+- **线 A 画面** = 2–3 情绪场 + 雨雾粒子  
+- **线 B 画面** = 两字情绪 + 5 镜山水同角 + 中英字幕  
+- 密度 = 默认 A-短；嫌像诗 → A-密  
+
+选题过滤器：
+
+> **删掉书名，这句话还能否让人想转发？**  
+> **想转的人是在站队，还是只被摸头安慰？**
 
 ## Workflow
 
-1. **Collect the minimum input**
-   - Required: book title or theme.
-   - Useful: target account positioning, author/source line, desired tone, any must-use quotes.
-   - Default account format: 3:4 vertical, `1080x1440`, usually 35-60s, with 60-90s allowed when shortening would damage the approved narration.
+### 1. 收集输入 + 选视觉线
 
-2. **Write the one-pass narration**
-   - Default to the saved hook-first five-part script pattern in `references/method.md`.
-   - Before drafting, list 3 core viewpoints of the book and select the single most counterintuitive / offensive one. The whole script must only serve that one point.
-   - Spoken narration must not start with `今天分享的是...` unless the user explicitly asks for the old fixed opener. Put the book title in sentence 2 or 3.
-   - The first sentence must be book-specific. If it could fit many other books, rewrite it.
-   - Use one concrete book-grounded example. The example must come from the book's real argument or original examples; if unsure, verify or ask before writing.
-   - Include an emotional reversal around the middle, then keep the post-reversal explanation to 4 sentences or fewer.
-   - Use only 1-2 memorable lines. Too many "gold lines" makes the script feel written, not spoken.
-   - Use natural spoken rhythm: short impact lines mixed with longer setup lines. Do not chop every sentence into 5-8 character fragments.
-   - Use `renwei-writing` before presenting the narration when available: read its `SKILL.md` and post-edit checklist, then check that the script sounds like a person with a point of view, not a polished AI summary.
-   - Save the full narration text, e.g. `audio/voiceover_with_intro.txt`.
+- **必填**：书名或主题  
+- **选填**：视觉线 A/B、水印、作者行、工作目录  
+- **默认规格**：`1080×1440` · 30fps  
+- 用户贴 sample / 说中英、毛笔 → **线 B**；否则 **线 A**
 
-3. **Self-review, then get narration approval before audio**
-   - First draft the narration, run the `renwei-writing` check, revise it, and confirm it has a real hook within the first `3-5s`.
-   - Only show the user the best candidate you would personally stand behind, not a raw draft.
-   - Stop after this self-reviewed narration and ask the user to review it.
-   - Do not generate TTS, build the full composition, or download extra visual material until the user approves or requests revisions.
-   - Present a compact audit with the narration:
-     `hook timing`, `self-review changes`, `why it is not AI-flavored`, `key sentences preserved for captions`.
+### 2. 写旁白 / 内容包 → **STOP**
 
-4. **Generate voice in one pass**
-   - Generate the approved narration as one TTS file. Do not generate a separate intro voice or splice reference speech into it.
-   - Use Doubao TTS API Key flow if configured; see `references/doubao-tts.md`.
-   - Keep the voice calm and slow. A good starting speed is `0.88`.
-   - If using the default SFX-only opener, mix the delayed TTS into the master after the opener; do not put the delay into the TTS file itself.
+读 `method.md`。  
 
-5. **Choose content-matched visual material**
-   - Copy the reference method, not the reference materials.
-   - Search/select visuals according to the script and the book's subject.
-   - Build a new episode-specific asset set. Reusing an old composition is fine; reusing the old episode's footage is not.
-   - Use this fallback order: literal content match, theme-adjacent imagery, then emotionally matched scenery.
-   - If literal images are weak, forced, or visually inconsistent, prefer evocative landscapes such as misty mountains, rivers, forests, solitary trees, paths, rain, or boats. The captions carry the argument; the scenery carries the emotion.
-   - Keep fallback scenery within one coherent visual world instead of mixing unrelated stock-photo styles.
-   - Give still scenery restrained, varied motion: alternate slow push, horizontal pan, vertical lift, slight drift, or a subtle mist/parallax layer. Do not apply the same zoom to every scene.
-   - Do not default to a dark look. Choose bright, neutral, warm, documentary, or dark treatment according to the book and hook.
-   - Keep captions over clean contrast zones. The whole image should not be crushed into black; important shapes should remain visible.
-   - Convert wide source images into intentional `3:4` portrait crops before putting them into scenes. Choose the crop per subject: keep the chocolate, hand, face, phone, or other narrative anchor in frame.
-   - Track asset sources in `docs/asset_sources.md` or similar.
+| 线 | 交付 |
+| --- | --- |
+| A | `docs/narration-review.md`（候选许可证 + 正文 + 审核摘要） |
+| B | 同上，或 `docs/content-pack.md`：**两字 ⭐** + 正文 + **中英字幕表** + 分镜意图 |
 
-6. **Build the HyperFrames composition**
-   - Use `1080x1440`, `data-duration` equal to final mixed audio.
-   - Use fixed top book title, small author/source line, bottom watermark.
-   - The visual opener may show the book title from frame 0, but the spoken audio should follow the approved narration. Do not add a separate spoken `今天分享的是...` opener unless it is in the approved script.
-   - Use slow Ken Burns motion only: scale/pan, no complex editing.
-   - Use large white Chinese text with thick black shadow/outline.
-   - Keep captions at most two lines where possible.
-   - Keep opener spacing generous: top title, author line, opener subtitle, and book visual must not crowd each other.
-   - Default opener timing: `0-3.56s` visual/SFX only; formal voice and the first caption cue begin at `3.56s`. Use the same offset in `data-start`, `data-reveal`, `data-hide`, the root duration, and the audio mix.
+用户打回文案：见 method（dbs-resonate / spread / hook；禁止只建议不落定稿）。
 
-7. **Synchronize captions conservatively**
-   - Source-of-truth order is: approved narration text, final TTS audio, word/token timestamps, then ASR text. Never copy Chinese ASR output directly into visible captions because recognition may change characters or names.
-   - Run local word-timestamp transcription on the clean voice-only TTS file, not on the mixed master with BGM and SFX. Prefer `whisper-fast` when it is actually installed; otherwise use an installed compatible local backend such as the `faster-whisper` Python package, then fall back to whisper.cpp if needed.
-   - When using `faster-whisper`, enable `word_timestamps`, use `language=zh`, and pass the approved script as an `initial_prompt` when practical. Save the result, for example, as `audio/transcript_faster.json`.
-   - Map the timestamps back onto the approved script. Preserve every spoken word and punctuation choice in the script; use ASR only to locate starts, ends, and pauses.
-   - Put scene boundaries between sentences or semantic beats. Never cut a sentence in half just to preserve an old scene duration table.
-   - If sync feels off, remove caption animation before debugging.
-   - Prefer hard-cut caption visibility at exact cue times over fancy fade/blur/stagger.
-   - Add explicit `data-hide` times for old caption lines when a scene contains more than one semantic beat.
-   - Run a caption-text audit: compare each screen caption to the narration and preserve core words in important logic sentences.
-   - Run an exact normalized-text audit before preview: concatenate visible caption text in reading order, remove only whitespace and punctuation, and compare it with the same normalization of `audio/voiceover_with_intro.txt`. The result must match exactly.
-   - Use Whisper token timestamps only as an aid; inspect them because Chinese recognition may have wrong characters.
-   - If whisper.cpp crashes on Mac GPU/Metal, rerun with `--no-gpu --no-flash-attn` at the whisper-cli level.
+### 3. 批准后：配音 + BGM（+ SFX）
 
-8. **Add BGM and transition carefully**
-   - Add quiet background music under narration.
-   - Keep BGM low enough that text and voice dominate.
-   - Put the opener SFX in the master from time 0. If using a reference-derived bed, remove vocals with Demucs first; do not use high-pass filtering as a substitute for separation.
-   - Use one `audio/master_with_intro.wav` as the HyperFrames audio source. Keep the MP3 only for lightweight browser preview when needed.
+读 `audio-bgm.md`、`doubao-tts.md`。
 
-9. **Preview before render**
-   - Start with `npx hyperframes play --port <available> --no-open` or the project wrapper. Prefer a lightweight `simple-preview.html` for user review when the Studio player is overkill.
-   - Give the user the direct `simple-preview.html` URL. Do not expose cache-busting query strings or a stale project's port.
-   - Have the user review the browser preview.
-   - Iterate until the user explicitly approves.
-   - Render MP4 only after approval.
+1. 一次 TTS（批准正文）  
+2. 线 A：`opener_sfx_glass` + 可选 3.56s 垫静音  
+3. 线 B：VO 可从 0 起；弱 BGM + 可选短 SFX  
+4. `amix=normalize=0` · loudnorm ≈ -14 LUFS  
+5. `data-duration` = master 时长  
 
-10. **Package the deliverables**
-   - Render final MP4.
-   - Generate a matching `1080x1440` cover image.
-   - Keep the cover bright enough to show the subject; do not inherit a dark reference grade automatically.
-   - Write `docs/posting-copy.md` with one recommended title, a concise posting body, hashtags, and optional backup titles. The recommended title must be specific to the book's thesis.
-   - Verify the MP4 with `ffprobe`: plausible duration, `1080x1440`, H.264 video, and AAC audio.
-   - Extract a final contact sheet from several meaningful timestamps, including the hook, experiment/example, reversal, warning, and closing question. Inspect the rendered frames, not only the browser preview.
+### 4. 视觉资产
 
-## Reusable References
+| 线 | 读 | 资产 |
+| --- | --- | --- |
+| A | `opener.md` · `visual-sourcing.md` | `assets/opener/op-glass*` · brand 书卡 · scene-a/b/c |
+| B | **`visual-line-sample.md`** | `first-frame.jpg` · `brush-chars.png` · `books/*` · `char-ref` · scene-a…e **半屏人物** |
 
-- `references/method.md`: distilled viral-method results from the completed sample project.
-- `references/doubao-tts.md`: Doubao API Key TTS setup and one-pass voice workflow.
-- `references/hyperframes-patterns.md`: composition, caption, render, and sync rules.
-- `references/caption-sync.md`: local ASR timing, canonical-script captioning, exact-text auditing, and final-frame verification.
-- `references/packaging.md`: cover image and posting copy pattern.
+登记 `docs/asset_sources.md`。
 
-## Bundled Assets
+### 5. 搭建 HyperFrames
 
-- `assets/script-template.md`: narration and storyboard template.
-- `assets/cover-template.html`: HTML/CSS cover template to screenshot into a cover image.
+**线 A 时间轴**（无口播片头默认）：
+
+| 时间 | 内容 |
+| ---: | --- |
+| 0–0.85 | 碎玻璃 |
+| 1.05–2.6 | 三书卡交错 |
+| 2.6–3.56 | hold → dissolve |
+| 3.56+ | 旁白 + 字幕 + 正片 |
+
+**线 B 时间轴**：
+
+| 时间 | 内容 |
+| ---: | --- |
+| 0–0.45 | **首帧封面烧录** |
+| 0–2.7 | 两字毛笔 + 天空裂口 + 钩子中英 |
+| 2.55–6.3 | 书封 3D 轮播 |
+| 6.1+ | 正片 5 镜 + 顶栏 + 中英字幕 |
+
+**UI（按线）**
+
+| 元素 | 线 A | 线 B |
+| --- | --- | --- |
+| 顶栏书名 | 白/冰蓝 + glow | 白字厚描边即可 |
+| 作者 | **橙色** | 白/浅灰 |
+| 字幕 | 中文 `.zh.tight` | **中文 + 英文小行** |
+| 水印 | `@读书笔记 · 书评分享` | 同 |
+
+### 6. Whisper 对轴
+
+```bash
+export KMP_DUPLICATE_LIB_OK=TRUE
+export OMP_NUM_THREADS=1
+# faster-whisper 词级时间 → docs/whisper_cues.md / cues.json
+```
+
+- 映射 **中文口播**；线 B 英文跟中文同 reveal/hide  
+- 近音归一（发讲→发奖、鱼花→余华…）  
+- 禁止为躲书卡拖后字幕  
+
+### 7. 预览与自检
+
+```bash
+npx hyperframes lint
+npx hyperframes snapshot --at 0,0.5,1.5,3.5,6,12,20,30 --output snapshots/check-v1 --describe false
+npx hyperframes play --port <available> --no-open
+```
+
+**必查第 0 帧**（`--at 0`）：线 B / 任意线均 **禁止首帧纯黑**。
+
+清单：
+
+- [ ] 线正确（A 或 B，未混）  
+- [ ] 线 A：玻璃在动、书卡三交错；或 线 B：裂口+光带+书卡 3D  
+- [ ] Whisper 对轴  
+- [ ] 正片动效不重复；线 B 人物半屏、姿势多样  
+- [ ] 仅本期人声 + BGM  
+
+**→ 用户批准画面。**
+
+### 8. 导出 → 封面 → 文案（同一回合）
+
+```bash
+npx hyperframes render -o output/<slug>.mp4 -q high
+# covers/cover.html → Chrome headless → cover.png + cover.jpg
+# 线 B：同步 sips/复制 cover → assets/opener/first-frame.jpg（下次合成用）
+# docs/posting-copy.md
+```
+
+**验收：**
+
+- [ ] `output/*.mp4` 可播 · 1080×1440 H.264 + AAC  
+- [ ] `covers/cover.png`  
+- [ ] `docs/posting-copy.md`  
+- [ ] **`ffmpeg` 抽第 0 帧非黑屏**（线 B 硬门；线 A 也建议）  
+
+## 换书最小改动
+
+| 线 A | 线 B |
+| --- | --- |
+| 旁白+TTS+master | 旁白+两字+中英表+TTS+master |
+| Whisper 全表 | Whisper 全表 |
+| 顶栏书名作者 | 顶栏 + 毛笔两字重渲 + first-frame |
+| 2–3 主视觉 | char-ref + 5 镜半屏重出 |
+| 封面+文案 | 封面+文案+first-frame 同步 |
+
+## 项目结构
+
+```
+<project>/
+  index.html
+  audio/          master*.wav · voiceover* · bgm · sfx
+  assets/
+    opener/       # A: glass/brand  |  B: first-frame · brush-chars · sky
+    books/        # B: 书封轮播
+    generated/    # 正片；B 含 char-ref
+    fonts/
+  docs/
+    narration-review.md | content-pack.md
+    asset_sources.md
+    whisper_cues.md · cues.json
+    posting-copy.md
+  covers/
+  snapshots/
+  output/
+```
+
+## References
+
+| 文件 | 用途 |
+| --- | --- |
+| `references/visual-line-sample.md` | **线 B 样例线终态（必读）** |
+| `references/opener.md` | 线 A 玻璃/书卡 |
+| `references/method.md` | 旁白；说破/疗愈；A-短/A-密 |
+| `references/lessons-learned.md` | 复盘（含活着文案 + 样例线） |
+| `references/packaging.md` | 封面、首帧烧录、发布文案 |
+| `references/audio-bgm.md` | 混音 |
+| `references/doubao-tts.md` | TTS |
+| `references/visual-sourcing.md` | 出图 |
+| `references/viral-formula.md` | 爆款公式 |
+| `references/motion.md` | 动效 |
+| `references/hyperframes-patterns.md` | 合成校验 |
 
 ## Scripts
 
-- `scripts/doubao_tts_v3_api_key.py`: deterministic Doubao Speech HTTP V3 TTS helper using API Key auth.
-
-After using any script copied into a project, run it in that project and verify output duration with `ffprobe`.
+- `scripts/doubao_tts_v3_api_key.py` — Doubao Speech HTTP V3 TTS
